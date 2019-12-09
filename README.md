@@ -1,99 +1,50 @@
-# MakeCode Package for Valenta Zero and Plus Controller Boards
+# MakeCode Package for 4tronix ServoBit Servo Controller Board
 
-This library provides a Microsoft Makecode package for Valenta Zero and Plus
+The 4tronix ServoBit uses a PCA9685 to control 16 independent servos.
+Helper commands are available to centre all servos, or set individual servos to any angle from -90 to +90 degrees
 
-## Selecting the Model of Board
-This extension will automatically detect which board is in use on power up. Alternatively
-you can force the type of board. You can also query the board type so your code can respond correctly
+It is also possible to set the speed at which each servo moves to its new position, which gives a smoother operation
+
+In addition, the 4tronix ServoBit contains a single Smart RGB status LED which can be set to any colour and brightness
+and a flashing function is also available.
+
+
+## Setting the servos
+
 ```blocks
-// Set the board type
-valenta.select_model(vModel.Plus)
+// Set all 16 servos to the centre position
+ServoBit.zeroServos();
 
-// Check and respond to board type
-if (valenta.getModel() == vModels(vModel.Plus))
-{
-   ...
-}
+// Set Servo 5 to +30 degrees
+ServoBit.setServo(5, 30);
+
+// Set Servo 13 to -90 degrees
+ServoBit.setServo(13, -90);
 ```
 
-## Driving the robot    
-The simplest way to drive robot is by using the `driveMilliseconds(...)` and `driveTurnMilliseconds(...)` blocks.   
-Note with `driveMilliseconds(...)`, you can specify a negative speed to reverse.   
-```blocks
-// Drive forward for 2000 ms
-valenta.driveMilliseconds(1023, 2000)
+## Smart RGB LED helpers
 
-// Drive backwards for 2000 ms
-valenta.driveMilliseconds(-1023, 2000)
-
-// Spin left for 200 ms
-valenta.spinMilliseconds(vRobotDirection.Left, 1023, 200)
-
-// Turn right for 200 ms
-valenta.spinMilliseconds(vRobotDirection.Right, 1023, 200)
-```   
-
-These blocks are also available in non blocking version. The following example performs the same operation as above.   
-```blocks
-valenta.drive(1023)
-basic.pause(1000)
-
-valenta.drive(0)
-basic.pause(1000)
-
-valenta.spin(vRobotDirection.Left, 1023)
-basic.pause(250)
-
-valenta.spin(vRobotDirection.Right, 1023)
-basic.pause(250)
-
-valenta.drive(0)
-```
-
-## Stopping
-When the motor speed is set to zero then it stops. However, we can also use the motor itself to create a reverse generated current to brake much quicker.
-This helps when aiming for more accurate manoeuvres. Use the `TH.stop(...)` command to stop with braking, or coast to a halt
-```blocks
-valenta.robot_stop(vStopMode.Coast) # slowly coast to a stop
-valenta.robot_stop(vStopMode.Brake) # rapidly brake
-```
-
-## Driving the motor
-
-If you want more fine grain control of individal motors, use `valenta.motor(..)` to drive motor either forward or reverse. The value
-indicates speed and is between `-1023` to `1023`. Minus indicates reverse.
+The 4tronix ServoBit has a single smart RGB LED (aka neopixel) fitted. This library defines some helpers
+for using it.
+The LED is automatically updated after every setting
 
 ```blocks
-// Drive 1000 ms forward
-valenta.motor(vMotor.Both, 1023);
-basic.pause(1000);
+// Clear LED
+ServoBit.ledClear();
 
-// Drive 1000 ms reverse
-valenta.motor(vMotor.Both, -1023);
-basic.pause(1000);
-
-// Drive 1000 ms forward on left and reverse on right
-valenta.motor(vMotor.Left, 1023);
-valenta.motor(vMotor.Right, -1023);
-basic.pause(1000);
-```
-
-## NeoPixel helpers
-
-The Valenta Plus has a single smart RGB LEDs(aka neopixels) fitted.
-This library defines some helpers for using it.
-The LED is automatically updated after every setting. This makes it easy to understand.
-
-```blocks
-// Set LED to a colour
-valenta.setLedColor(valenta.vColours(vColors.Red));
-
-// Clear the LED
-valenta.ledClear();
+// Set LED to Red
+ServoBit.setLedColor(ServoBit.vColours(vColors.Red));
 
 // Set brightness of LED
-valenta.ledBrightness(100);
+ServoBit.ledBrightness(40);
+
+// Start Flashing the LED with Green
+ServoBit.startFlash(ServoBit.vColours(vColors.Green), 100);
+
+// Stop flashing the LED
+ServoBit.stopFlash();
 ```
+
 
 ## Supported targets
 
