@@ -103,6 +103,11 @@ namespace ServoBit
     //% subcategory=Servos
     export function setServo(servo: number, angle: number): void
     {
+        setServoRaw(servo, angle): void
+        servoTarget[servo] = angle;
+    }
+
+    function setServoRaw(servo: number, angle: number): void
         if (initI2C == false)
         {
             initPCA();
@@ -151,7 +156,7 @@ namespace ServoBit
         {
             while (servoActual[servo] != servoTarget[servo])
             {                                
-                setServo(servo, servoActual[servo]+step)
+                setServoRaw(servo, servoActual[servo]+step)
                 basic.pause(delay);
             }
         })
@@ -161,7 +166,7 @@ namespace ServoBit
       * Get Servo Current Actual Position
       * @param servo Servo number (0 to 15)
       */
-    //% blockId="getServoActual" block="get servo %servo| actual position"
+    //% blockId="getServoActual" block="servo %servo| actual position"
     //% weight=10
     //% subcategory=Servos
     export function getServoActual(servo: number): number
@@ -173,12 +178,24 @@ namespace ServoBit
       * Get Servo Target Position
       * @param servo Servo number (0 to 15)
       */
-    //% blockId="getServoTarget" block="get servo %servo| target position"
-    //% weight=5
+    //% blockId="getServoTarget" block="servo %servo| target position"
+    //% weight=8
     //% subcategory=Servos
     export function getServoTarget(servo: number): number
     {
         return servoTarget[servo];
+    }
+
+    /**
+      * Check if servo has reached target
+      * @param servo Servo number (0 to 15)
+      */
+    //% blockId="isServoDone" block="servo %servo| is complete"
+    //% weight=5
+    //% subcategory=Servos
+    export function isServoDone(servo: number): boolean
+    {
+        return servoTarget[servo]==servoActual[servo];
     }
 
 
