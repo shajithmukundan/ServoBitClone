@@ -108,6 +108,7 @@ namespace ServoBit
     }
 
     function setServoRaw(servo: number, angle: number): void
+    {
         if (initI2C == false)
         {
             initPCA();
