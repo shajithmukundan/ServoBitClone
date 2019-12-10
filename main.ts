@@ -30,7 +30,7 @@ enum vColors
 /**
  * Custom blocks
  */
-//% weight=50 color=#a93135 icon="\uf0e4"
+//% weight=50 color=#e7660b icon="\uf1da"
 namespace ServoBit
 {
     let neoStrip: neopixel.Strip;
@@ -127,10 +127,10 @@ namespace ServoBit
     }
 
     /**
-      * Move Servo o Target Position at selected Speed
+      * Move Servo to Target Position at selected Speed
       * @param servo Servo number (0 to 15)
       * @param angle degrees to turn to (-90 to +90)
-      * @parame speed degrees per second to move (0 to 1000)
+      * @parame speed degrees per second to move (1 to 1000)
       */
     //% blockId="moveServo" block="move servo %servo| to angle %angle| at speed %speed| degrees/sec"
     //% weight=70
@@ -139,27 +139,22 @@ namespace ServoBit
     //% subcategory=Servos
     export function moveServo(servo: number, angle: number, speed: number): void
     {
-        if (initI2C == false)
-        {
-            initPCA();
-        }
-        // two bytes need setting for start and stop positions of the servo
-        // servos start at SERVOS (0x06) and are then consecutive blocks of 4 bytes
-        // the start position (always 0x00) is set during init for all servos
-
-        let i2cData = pins.createBuffer(2);
-        let start = 0;
+        let step = 1;
+        let delay = 10; // 10ms delay between steps
         angle = Math.max(Math.min(90, angle),-90);
-        let stop = 369 + angle * 223 / 90;
-
-        i2cData[0] = SERVOS + servo*4 + 2;	// Servo register
-        i2cData[1] = (stop & 0xff);		// low byte stop
-        pins.i2cWriteBuffer(PCA, i2cData, false);
-
-        i2cData[0] = SERVOS + servo*4 + 3;	// Servo register
-        i2cData[1] = (stop >> 8);		// high byte stop
-        pins.i2cWriteBuffer(PCA, i2cData, false);
-        servoActual[servo] = angle;
+        speed = Math.max(Math.min(1000, speed),1);
+        delay = Math.round(1000/speed);
+        servoTarget[servo] = angle;
+        if (angle < servoActual[servo])
+            step = -1;
+        control.inBackground(() =>
+        {
+            while (servoActual[servo] != servoTarget[servo])
+            {                                
+                setServo(servo, servoActual[servo]+step)
+                basic.pause(delay);
+            }
+        })
     }
 
     /**
