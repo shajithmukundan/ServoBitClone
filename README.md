@@ -11,13 +11,13 @@ and a flashing function is also available.
 
 ## Setting the servos
 
+![](http://4tronix.co.uk/servobit/centreServos.jpg)
+
 ![](http://4tronix.co.uk/servobit/setServo.jpg)
 
 ```blocks
 // Set all 16 servos to the centre position
 ServoBit.centreServos();
-
-![](http://4tronix.co.uk/servobit/setServo.jpg)
 
 // Set Servo 5 to +30 degrees
 ServoBit.setServo(5, 30);
@@ -32,6 +32,17 @@ Reasonable values for slower movements are between 30 and 200 degrees per second
 Setting the servo position whilst it is still moving, will cancel the movement command.
 Creating a new movement command for a servo with an existing movement will cancel the first and then start the second.
 You can also check if the servo has reached its target position, or wait until it has completed.
+
+![](http://4tronix.co.uk/servobit/moveServo.jpg)
+
+![](http://4tronix.co.uk/servobit/servoActual.jpg)
+
+![](http://4tronix.co.uk/servobit/servoTarget.jpg)
+
+![](http://4tronix.co.uk/servobit/servoComplete.jpg)
+
+![](http://4tronix.co.uk/servobit/waitServo.jpg)
+
 
 ```blocks
 // Move servo 5 to 30 degrees at 40 degrees per second
@@ -52,6 +63,17 @@ ServoBit.waitServo(5);
 The 4tronix ServoBit has a single smart RGB LED (aka neopixel) fitted. This library defines some helpers
 for using it.
 The LED is automatically updated after every setting
+
+![](http://4tronix.co.uk/servobit/clearLed.jpg)
+
+![](http://4tronix.co.uk/servobit/setLed.jpg)
+
+![](http://4tronix.co.uk/servobit/setBrightness.jpg)
+
+![](http://4tronix.co.uk/servobit/startFlash.jpg)
+
+![](http://4tronix.co.uk/servobit/stopFlash.jpg)
+
 
 ```blocks
 // Clear LED
