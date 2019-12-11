@@ -23,11 +23,11 @@ ServoBit.setServo(13, -90);
 ```
 
 ## Controlling servo movements and speeds
-You can control the number of degrees per second that the servo moves. A typical servo would have a maximum speed of around 500 degrees per second
-Reasonable values for slower movements are between 30 and 200 degrees per second, although a range of 1 to 1000 is supported
-Setting the servo position whilst it is still moving, will cancel the movement command
-Creating a new movement command for a servo with an existing movement will cancel the first and then start the second
-You can also check if the servo has reached its target position, or wait until it has completed
+You can control the number of degrees per second that the servo moves. A typical servo would have a maximum speed of around 500 degrees per second.
+Reasonable values for slower movements are between 30 and 200 degrees per second, although a range of 1 to 1000 is supported.
+Setting the servo position whilst it is still moving, will cancel the movement command.
+Creating a new movement command for a servo with an existing movement will cancel the first and then start the second.
+You can also check if the servo has reached its target position, or wait until it has completed.
 
 ```blocks
 // Move servo 5 to 30 degrees at 40 degrees per second

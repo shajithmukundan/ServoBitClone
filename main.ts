@@ -153,7 +153,7 @@ namespace ServoBit
         {
             servoCancel[servo] = true;
             while(servoCancel[servo])
-                ;
+                basic.pause(1);  // yield
         }
         angle = Math.max(Math.min(90, angle),-90);
         speed = Math.max(Math.min(1000, speed),1);
