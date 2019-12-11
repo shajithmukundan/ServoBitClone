@@ -13,13 +13,34 @@ and a flashing function is also available.
 
 ```blocks
 // Set all 16 servos to the centre position
-ServoBit.zeroServos();
+ServoBit.centreServos();
 
 // Set Servo 5 to +30 degrees
 ServoBit.setServo(5, 30);
 
 // Set Servo 13 to -90 degrees
 ServoBit.setServo(13, -90);
+```
+
+## Controlling servo movements and speeds
+You can control the number of degrees per second that the servo moves. A typical servo would have a maximum speed of around 500 degrees per second
+Reasonable values for slower movements are between 30 and 200 degrees per second, although a range of 1 to 1000 is supported
+Setting the servo position whilst it is still moving, will cancel the movement command
+Creating a new movement command for a servo with an existing movement will cancel the first and then start the second
+You can also check if the servo has reached its target position, or wait until it has completed
+
+```blocks
+// Move servo 5 to 30 degrees at 40 degrees per second
+ServoBit.moveServo(5, 30, 40);
+
+// Check current actual position of servo 5
+let variable = ServoBit.getServoActual(5);
+
+// check current target positon for servo 5
+let variable = ServoBit.getServoTarget(5);
+
+// Wait for servo 5 to complete its movement
+ServoBit.waitServo(5);
 ```
 
 ## Smart RGB LED helpers
