@@ -43,6 +43,7 @@ namespace ServoBit
     let SERVOS = 0x06; // first servo address for start byte low
     let servoTarget: number[] = [];
     let servoActual: number[] = [];
+    let servoCancel: boolean[] = [];
 
 // Helper functions
 
@@ -77,16 +78,17 @@ namespace ServoBit
 
             servoTarget[servo]=0;
             servoActual[servo]=0;
+            servoCancel[servo]=false;
         }
     }
 
     /**
       * Initialise all servos to Angle=0
       */
-    //% blockId="zeroServos"
-    //% block
+    //% blockId="centreServos"
+    //% block="centre all servos"
     //% subcategory=Servos
-    export function zeroServos(): void
+    export function centreServos(): void
     {
         for (let i=0; i<16; i++)
             setServo(i, 0);
@@ -136,7 +138,7 @@ namespace ServoBit
       * Move Servo to Target Position at selected Speed
       * @param servo Servo number (0 to 15)
       * @param angle degrees to turn to (-90 to +90)
-      * @parame speed degrees per second to move (1 to 1000)
+      * @param speed degrees per second to move (1 to 1000) eg: 60
       */
     //% blockId="moveServo" block="move servo %servo| to angle %angle| at speed %speed| degrees/sec"
     //% weight=70
@@ -147,6 +149,12 @@ namespace ServoBit
     {
         let step = 1;
         let delay = 10; // 10ms delay between steps
+        if(servoTarget[servo] != servoActual[servo])   // cancel any existing movement on this servo?
+        {
+            servoCancel[servo] = true;
+            while(servoCancel[servo])
+                ;
+        }
         angle = Math.max(Math.min(90, angle),-90);
         speed = Math.max(Math.min(1000, speed),1);
         delay = Math.round(1000/speed);
@@ -156,7 +164,12 @@ namespace ServoBit
         control.inBackground(() =>
         {
             while (servoActual[servo] != servoTarget[servo])
-            {                                
+            {
+                if(servoCancel[servo])
+                {
+                    servoCancel[servo] = false;
+                    break;
+                }
                 setServoRaw(servo, servoActual[servo]+step);
                 basic.pause(delay);
             }
@@ -198,6 +211,20 @@ namespace ServoBit
     {
         return servoTarget[servo]==servoActual[servo];
     }
+
+    /**
+      * Wait until servo has reached target position
+      * @param servo Servo number (0 to 15)
+      */
+    //% blockId="waitServo" block="wait for servo %servo"
+    //% weight=5
+    //% subcategory=Servos
+    export function waitServo(servo: number): void
+    {
+        while (servoActual[servo] != servoTarget[servo]) // what if nothing is changing these values?
+            basic.pause(10);
+    }
+
 
 
 // LED Blocks
