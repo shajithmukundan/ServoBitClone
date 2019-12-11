@@ -103,7 +103,7 @@ namespace ServoBit
     //% subcategory=Servos
     export function setServo(servo: number, angle: number): void
     {
-        setServoRaw(servo, angle): void
+        setServoRaw(servo, angle);
         servoTarget[servo] = angle;
     }
 
@@ -157,7 +157,7 @@ namespace ServoBit
         {
             while (servoActual[servo] != servoTarget[servo])
             {                                
-                setServoRaw(servo, servoActual[servo]+step)
+                setServoRaw(servo, servoActual[servo]+step);
                 basic.pause(delay);
             }
         })
