@@ -11,9 +11,13 @@ and a flashing function is also available.
 
 ## Setting the servos
 
+![](http://4tronix.co.uk/servobit/setServo.jpg)
+
 ```blocks
 // Set all 16 servos to the centre position
 ServoBit.centreServos();
+
+![](http://4tronix.co.uk/servobit/setServo.jpg)
 
 // Set Servo 5 to +30 degrees
 ServoBit.setServo(5, 30);
