@@ -1,6 +1,6 @@
 # MakeCode Package for 4tronix ServoBit Servo Controller Board
 
-The 4tronix ServoBit uses a PCA9685 to control 16 independent servos.
+The [4tronix ServoBit](https://4tronix.co.uk/servobit) uses a PCA9685 to control 16 independent servos.
 Helper commands are available to centre all servos, or set individual servos to any angle from -90 to +90 degrees
 
 It is also possible to set the speed at which each servo moves to its new position, which gives a smoother operation
