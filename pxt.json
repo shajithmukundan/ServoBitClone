@@ -1,11 +1,11 @@
 {
     "name": "ServoBit",
-    "version": "0.0.1",
+    "version": "0.1.1",
     "description": "Microsoft MakeCode package for 4tronix ServoBit",
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "neopixel": "github:microsoft/pxt-neopixel#v0.6.10"
+        "neopixel": "*"
     },
     "files": [
         "README.md",
