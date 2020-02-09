@@ -1,15 +1,15 @@
 {
     "name": "ServoBit",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "description": "Microsoft MakeCode package for 4tronix ServoBit",
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "neopixel": "github:microsoft/pxt-neopixel"
+        "fireled": "github:4tronix/FireLedsBase"
     },
     "files": [
         "README.md",
-        "main.ts"
+        "servobit.ts"
      ],
     "testFiles": [
         "tests.ts"

@@ -5,8 +5,8 @@ Helper commands are available to centre all servos, or set individual servos to 
 
 It is also possible to set the speed at which each servo moves to its new position, which gives a smoother operation
 
-In addition, the 4tronix ServoBit contains a single Smart RGB status LED which can be set to any colour and brightness
-and a flashing function is also available.
+In addition, the 4tronix ServoBit contains a single FireLed status indicator which can be set to any colour and brightness
+with a flashing function also available.
 
 
 ## Setting the servos
@@ -58,10 +58,10 @@ let variable = ServoBit.getServoTarget(5);
 ServoBit.waitServo(5);
 ```
 
-## Smart RGB LED helpers
+## FireLed helpers
 
-The 4tronix ServoBit has a single smart RGB LED (aka neopixel) fitted. This library defines some helpers
-for using it.
+The 4tronix ServoBit has a single FireLed fitted to act as a status indicator.
+This library defines some helpers for using it.
 The LED is automatically updated after every setting
 
 ![](http://4tronix.co.uk/servobit/clearLed.jpg)
