@@ -1,6 +1,6 @@
 {
     "name": "ServoBit",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "Microsoft MakeCode package for 4tronix ServoBit",
     "license": "MIT",
     "dependencies": {
