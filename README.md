@@ -1,6 +1,6 @@
-# MakeCode Package for 4tronix ServoBit Servo Controller Board
+# MakeCode Package for [4tronix ServoBit Servo Controller Board](https://4tronix.co.uk/servobit)
 
-The [4tronix ServoBit](https://4tronix.co.uk/servobit) uses a PCA9685 to control 16 independent servos.
+The 4tronix ServoBit uses a PCA9685 to control 16 independent servos.
 Helper commands are available to centre all servos, or set individual servos to any angle from -90 to +90 degrees
 
 It is also possible to set the speed at which each servo moves to its new position, which gives a smoother operation
@@ -11,19 +11,22 @@ with a flashing function also available.
 
 ## Setting the servos
 
-![](http://4tronix.co.uk/servobit/centreServos.jpg)
+Set all 16 servos to position zero, centre:
 
-![](http://4tronix.co.uk/servobit/setServo.jpg)
+```block
+ServoBit.centreServos()
+```
 
-```blocks
-// Set all 16 servos to the centre position
-ServoBit.centreServos();
+Set Servo 5 to +30 degrees:
 
-// Set Servo 5 to +30 degrees
-ServoBit.setServo(5, 30);
+```block
+ServoBit.setServo(5, 30)
+```
 
-// Set Servo 13 to -90 degrees
-ServoBit.setServo(13, -90);
+Set Servo 13 to -90 degrees:
+
+```block
+ServoBit.setServo(13, -90)
 ```
 
 ## Controlling servo movements and speeds
@@ -33,29 +36,28 @@ Setting the servo position whilst it is still moving, will cancel the movement c
 Creating a new movement command for a servo with an existing movement will cancel the first and then start the second.
 You can also check if the servo has reached its target position, or wait until it has completed.
 
-![](http://4tronix.co.uk/servobit/moveServo.jpg)
-
-![](http://4tronix.co.uk/servobit/servoActual.jpg)
-
-![](http://4tronix.co.uk/servobit/servoTarget.jpg)
-
-![](http://4tronix.co.uk/servobit/servoComplete.jpg)
-
-![](http://4tronix.co.uk/servobit/waitServo.jpg)
-
+Move servo 5 to 30 degrees at 40 degrees per second:
 
 ```blocks
-// Move servo 5 to 30 degrees at 40 degrees per second
-ServoBit.moveServo(5, 30, 40);
+ServoBit.moveServo(5, 30, 40)
+```
 
-// Check current actual position of servo 5
-let variable = ServoBit.getServoActual(5);
+Check current actual position of servo 5:
 
-// check current target positon for servo 5
-let variable = ServoBit.getServoTarget(5);
+```block
+let variable = ServoBit.getServoActual(5)
+```
 
-// Wait for servo 5 to complete its movement
-ServoBit.waitServo(5);
+Check current target positon for servo 5:
+
+```block
+let variable = ServoBit.getServoTarget(5)
+```
+
+Wait for servo 5 to complete its movement:
+
+```block
+ServoBit.waitServo(5)
 ```
 
 ## FireLed helpers
@@ -64,31 +66,33 @@ The 4tronix ServoBit has a single FireLed fitted to act as a status indicator.
 This library defines some helpers for using it.
 The LED is automatically updated after every setting
 
-![](http://4tronix.co.uk/servobit/clearLed.jpg)
+Clear LED:
 
-![](http://4tronix.co.uk/servobit/setLed.jpg)
+```block
+ServoBit.ledClear()
+```
 
-![](http://4tronix.co.uk/servobit/setBrightness.jpg)
+Set LED to Red:
 
-![](http://4tronix.co.uk/servobit/startFlash.jpg)
+```block
+ServoBit.setLedColor(ServoBit.vColours(vColors.Red))
+```
 
-![](http://4tronix.co.uk/servobit/stopFlash.jpg)
+Set brightness of LED:
 
+```block
+ServoBit.ledBrightness(40)
+```
 
-```blocks
-// Clear LED
-ServoBit.ledClear();
+Use the `startFlash(...)` function to start flashing the LED with a selected colour, eg. Green:
 
-// Set LED to Red
-ServoBit.setLedColor(ServoBit.vColours(vColors.Red));
+```block
+ServoBit.startFlash(ServoBit.vColours(vColors.Green), 100)
+```
 
-// Set brightness of LED
-ServoBit.ledBrightness(40);
+Use the `stopFlash(...)` function to stop flashing the LED:
 
-// Start Flashing the LED with Green
-ServoBit.startFlash(ServoBit.vColours(vColors.Green), 100);
-
-// Stop flashing the LED
+```block
 ServoBit.stopFlash();
 ```
 
